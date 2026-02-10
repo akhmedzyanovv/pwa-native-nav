@@ -1,15 +1,29 @@
 {
   "name": "pwa-native-nav",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/pwa-native-nav.umd.cjs",
+  "module": "./dist/pwa-native-nav.js",
+  "types": "./dist/pwa-native-nav.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/pwa-native-nav.d.ts",
+      "import": "./dist/pwa-native-nav.js",
+      "require": "./dist/pwa-native-nav.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^25.2.3",
     "typescript": "~5.9.3",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4"
   }
 }
