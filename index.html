@@ -1,13 +1,66 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pwa-native-nav</title>
-  </head>
-  <body>
-    <pwa-native-nav/>
-    <script type="module" src="/src/index.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>pwa-native-nav</title>
+</head>
+
+<body>
+  <div class="debug-controls">
+    <div>
+      <label for="platformSelect">Platform:</label>
+      <select id="platformSelect">
+        <option value="ios">iOS</option>
+        <option value="android">Android</option>
+        <option value="web">Web (Fallback)</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="standaloneCheck">Is Standalone:</label>
+      <input type="checkbox" id="standaloneCheck">
+    </div>
+  </div>
+
+  <div class="content-mock">
+    <h1>My PWA App</h1>
+    <p>Scroll down to see how the menu interacts with content.</p>
+    <p>Try changing the Platform in the controls above.</p>
+    <div style="height: 1000px; background: linear-gradient(to bottom, #eee, #ddd);">
+      Spacer for scroll...
+    </div>
+  </div>
+  <pwa-native-nav>
+    <button>Home</button>
+    <button>Search</button>
+    <button>Settings</button>
+  </pwa-native-nav>
+  <script type="module" src="/src/index.ts"></script>
+  <script>
+    const nav = document.querySelector('pwa-native-nav');
+    const platformSelect = document.getElementById('platformSelect');
+    const standaloneCheck = document.getElementById('standaloneCheck');
+
+    customElements.whenDefined('pwa-native-nav').then(() => {
+
+      const currentPlatform = nav.getAttribute('platform');
+      const currentStandalone = nav.getAttribute('standalone') === 'true';
+
+      platformSelect.value = currentPlatform;
+      standaloneCheck.checked = currentStandalone;
+
+      platformSelect.addEventListener('change', (event) => {
+        nav.setAttribute('platform', event.target.value);
+      });
+
+      standaloneCheck.addEventListener('change', (event) => {
+        nav.setAttribute('standalone', event.target.checked);
+      });
+    });
+  </script>
+</body>
+
 </html>
